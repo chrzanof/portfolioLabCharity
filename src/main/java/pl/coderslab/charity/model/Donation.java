@@ -3,6 +3,7 @@ package pl.coderslab.charity.model;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -38,7 +39,7 @@ public class Donation {
 
     @Length(max = 6)
     String zipCode;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate pickUpDate;
 
     LocalTime pickUpTime;
