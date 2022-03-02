@@ -31,7 +31,13 @@ public class DonationController {
     }
     @PostMapping("/form")
     public String showSummary(Donation donation, Model model) {
+        model.addAttribute("donation", donation);
+        return "summary";
+    }
+    @PostMapping("form/confirmed")
+    public String addDonation(Donation donation) {
+        donationRepository.save(donation);
 
-        return "";
+        return "formConfirmation";
     }
 }

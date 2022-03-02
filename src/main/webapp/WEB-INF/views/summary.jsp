@@ -27,11 +27,11 @@
         </ul>
 
         <ul>
-            <li><a href="index.html" class="btn btn--without-border active">Start</a></li>
-            <li><a href="index.html#steps" class="btn btn--without-border">O co chodzi?</a></li>
-            <li><a href="index.html#about-us" class="btn btn--without-border">O nas</a></li>
-            <li><a href="index.html#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
-            <li><a href="index.html#contact" class="btn btn--without-border">Kontakt</a></li>
+            <li><a href="" class="btn btn--without-border active">Start</a></li>
+            <li><a href="#steps" class="btn btn--without-border">O co chodzi?</a></li>
+            <li><a href="#about-us" class="btn btn--without-border">O nas</a></li>
+            <li><a href="#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
+            <li><a href="#contact" class="btn btn--without-border">Kontakt</a></li>
         </ul>
     </nav>
 
@@ -97,14 +97,14 @@
                         <li>
                             <span class="icon icon-bag"></span>
                             <span class="summary--text"
-                            >4 worki ubrań w dobrym stanie dla dzieci</span
+                            >${donation.quantity} worki</span
                             >
                         </li>
 
                         <li>
                             <span class="icon icon-hand"></span>
                             <span class="summary--text"
-                            >Dla fundacji "Mam marzenie" w Warszawie</span
+                            >Dla fundacji ${donation.institution.getName()}</span
                             >
                         </li>
                     </ul>
@@ -114,19 +114,18 @@
                     <div class="form-section--column">
                         <h4>Adres odbioru:</h4>
                         <ul>
-                            <li>Prosta 51</li>
-                            <li>Warszawa</li>
-                            <li>99-098</li>
-                            <li>123 456 789</li>
+                            <li>${donation.street}</li>
+                            <li>${donation.city}</li>
+                            <li>${donation.zipCode}</li>
                         </ul>
                     </div>
 
                     <div class="form-section--column">
                         <h4>Termin odbioru:</h4>
                         <ul>
-                            <li>13/12/2018</li>
-                            <li>15:40</li>
-                            <li>Brak uwag</li>
+                            <li>${donation.pickUpDate}</li>
+                            <li>${donation.pickUpTime}</li>
+                            <li>${donation.pickUpComment}</li>
                         </ul>
                     </div>
                 </div>
@@ -134,7 +133,20 @@
 
             <div class="form-group form-group--buttons">
                 <button type="button" class="btn prev-step">Wstecz</button>
-                <input type="submit" class="btn">Potwierdzam</input>
+                <%--@elvariable id="donation" type="pl.coderslab.charity.model.Donation"--%>
+                <form:form action="/form/confirmed" method="post" modelAttribute="donation">
+                    <form:hidden path="pickUpComment" value="${donation.pickUpComment}"/>
+                    <form:hidden path="pickUpTime" value="${donation.pickUpTime}"/>
+                    <form:hidden path="pickUpDate" value="${donation.pickUpDate}"/>
+                    <form:hidden path="zipCode" value="${donation.zipCode}"/>
+                    <form:hidden path="city" value="${donation.city}"/>
+                    <form:hidden path="street" value="${donation.street}"/>
+                    <form:hidden path="quantity" value="${donation.quantity}"/>
+<%--                    <form:hidden path="categories" value="${donation.categories}"/>--%>
+<%--                    <form:hidden path="institution" value="${donation.institution}"/>--%>
+                    <input type="submit" class="btn" value="Potwierdzam"/>
+                </form:form>
+
             </div>
         </div>
 
