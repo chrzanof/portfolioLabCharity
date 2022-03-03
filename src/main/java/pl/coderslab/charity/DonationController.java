@@ -12,6 +12,11 @@ import pl.coderslab.charity.repository.CategoryRepository;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -35,9 +40,34 @@ public class DonationController {
         return "summary";
     }
     @PostMapping("form/confirmed")
-    public String addDonation(Donation donation) {
+    public String addDonation(HttpServletRequest request, Model model) {
+        String pickUpComment = request.getParameter("pickUpComment");
+        LocalTime pickUpTime =LocalTime.parse(request.getParameter("pickUpTime"));
+        LocalDate pickUpDate = LocalDate.parse(request.getParameter("pickUpDate"));
+        String zipCode = request.getParameter("zipCode");
+        String city = request.getParameter("city");
+        String street = request.getParameter("street");
+        Integer quantity = Integer.parseInt(request.getParameter("quantity"));
+        String categories = request.getParameter("cat");
+        Long institutionId = Long.parseLong(request.getParameter("institutionId"));
+        Institution institution = institutionRepository.findById(institutionId).get();
+        List<String> ids = Arrays.asList(categories.split(" "));
+        List<Category> categoryList = new ArrayList<>();
+        for(String id: ids){
+            categoryList.add(categoryRepository.findById(Long.parseLong(id)).get());
+        }
+        Donation donation = Donation.builder()
+                .pickUpComment(pickUpComment)
+                .pickUpDate(pickUpDate)
+                .pickUpTime(pickUpTime)
+                .zipCode(zipCode)
+                .city(city)
+                .street(street)
+                .quantity(quantity)
+                .institution(institution)
+                .categories(categoryList)
+                .build();
         donationRepository.save(donation);
-
         return "formConfirmation";
     }
 }

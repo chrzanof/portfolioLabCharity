@@ -211,6 +211,7 @@
                     <input type="submit" class="btn" value="Dalej"/>
                 </div>
             </div>
+
         </form:form>
     </div>
 </section>

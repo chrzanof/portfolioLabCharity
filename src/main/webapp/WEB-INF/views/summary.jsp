@@ -126,26 +126,28 @@
                             <li>${donation.pickUpDate}</li>
                             <li>${donation.pickUpTime}</li>
                             <li>${donation.pickUpComment}</li>
+
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <div class="form-group form-group--buttons">
-                <button type="button" class="btn prev-step">Wstecz</button>
+            <div class="form-group">
+
                 <%--@elvariable id="donation" type="pl.coderslab.charity.model.Donation"--%>
-                <form:form action="/form/confirmed" method="post" modelAttribute="donation">
-                    <form:hidden path="pickUpComment" value="${donation.pickUpComment}"/>
-                    <form:hidden path="pickUpTime" value="${donation.pickUpTime}"/>
-                    <form:hidden path="pickUpDate" value="${donation.pickUpDate}"/>
-                    <form:hidden path="zipCode" value="${donation.zipCode}"/>
-                    <form:hidden path="city" value="${donation.city}"/>
-                    <form:hidden path="street" value="${donation.street}"/>
-                    <form:hidden path="quantity" value="${donation.quantity}"/>
-<%--                    <form:hidden path="categories" value="${donation.categories}"/>--%>
-<%--                    <form:hidden path="institution" value="${donation.institution}"/>--%>
+                <form action="/form/confirmed" method="post">
+                    <input type="hidden" name="pickUpComment" value="${donation.pickUpComment}"/>
+                    <input type="hidden" name="pickUpTime" value="${donation.pickUpTime}"/>
+                    <input type="hidden" name="pickUpDate" value="${donation.pickUpDate}"/>
+                    <input type="hidden" name="zipCode" value="${donation.zipCode}"/>
+                    <input type="hidden" name="city" value="${donation.city}"/>
+                    <input type="hidden" name="street" value="${donation.street}"/>
+                    <input type="hidden" name="quantity" value="${donation.quantity}"/>
+                    <input type="hidden" name="cat" value="${donation.getCategoriesIdString()}"/>
+                    <input type="hidden" name="institutionId" value="${donation.institution.id}"/>
+                    <a href="/form"><button type="button" class="btn">Wstecz</button></a>
                     <input type="submit" class="btn" value="Potwierdzam"/>
-                </form:form>
+                </form>
 
             </div>
         </div>

@@ -46,5 +46,14 @@ public class Donation {
 
     String pickUpComment;
 
+    public String getCategoriesIdString() {
+        String str = "";
+        for (Category category: this.categories) {
+            str += category.getId() + " ";
+        }
+        String trimmedStr = str.trim();
+        return trimmedStr;
+    }
+
 
 }
